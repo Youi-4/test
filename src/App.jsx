@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import {getRandomParagraph} from './randomParagraphGen'
 let i = 0;
 let inp = "";
 let count = 0;
-
+var paragraph = getRandomParagraph()
 function App() {
   const [seconds, setSeconds] = useState(0);
 
@@ -22,16 +23,16 @@ function App() {
   const [firstName, setFirstName] = useState('');
   const [color, setColor] = useState('black'); 
   let backspace = false;
-  var name = "First Name last name is the best thing to ever do it yes";
+
 
   const handleChange = (e) =>{
     const input = e.target.value;
     setFirstName(input);
     inp = input;
     // Check if the last character is the one you're looking for
-    console.log(input[i]," ",backspace," ",i," ",name[i])
+    console.log(input[i]," ",backspace," ",i," ",paragraph[i])
     if(backspace == false){
-      if (input[i] === name[i] && color != 'red'  ) {
+      if (input[i] === paragraph[i] && color != 'red'  ) {
         setColor('green');
         i+=1;
         count++;
@@ -40,7 +41,7 @@ function App() {
         i+=1;
       }
     }else{
-      if (input== name.slice(0,i)) {
+      if (input== paragraph.slice(0,i)) {
         setColor('green');
       }
     }
@@ -67,7 +68,7 @@ function App() {
       <div className="card">
 
       <label>
-      First Name last name is the best thing to ever do it yes:
+      {paragraph}
         <input value={firstName}  onKeyDown={handleKeyDown} onChange={handleChange} style={{color:color}} />
       </label>
 
@@ -76,7 +77,7 @@ function App() {
           count is { Math.round((count/5)/(seconds/60) * 100)/100}
         </button>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+
         </p>
       </div>
       <p className="read-the-docs">
